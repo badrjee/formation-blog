@@ -1,3 +1,7 @@
-<p>
-  list-article works!
-</p>
+<div class="article"
+	[ngStyle]="{ 'background-color': firstArticle ? 'lightgrey' : 'white'}"
+	*ngFor="let article of articles; index as i; first as firstArticle">
+	<h2 title="article-{{i}}">{{ article.title }}</h2>
+	<p>{{ article.description }}</p>
+</div>
+<button (click)="addArticle($event)">Ajouter</button>
