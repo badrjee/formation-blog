@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ListArticleComponent } from './list-article/list-article.component';
 import { AddArticleComponent } from './add-article/add-article.component';
+
+import { ArticleService } from './article.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +15,10 @@ import { AddArticleComponent } from './add-article/add-article.component';
     AddArticleComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

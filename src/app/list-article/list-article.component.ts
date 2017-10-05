@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ArticleService } from '../article.service';
+
 @Component({
 	selector: 'app-list-article',
 	templateUrl: './list-article.component.html',
@@ -8,19 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class ListArticleComponent implements OnInit {
 	articles: Array<any>;
 
-	constructor() {
+	constructor(private articleService: ArticleService) {
 		this.articles = new Array<any>();
-		this.articles.push({
-			title: 'Article n°1',
-			description: 'Super description...'
-		},
-		{
-			title: 'Article n°2',
-			description: 'Autre description...'
-		});
 	}
 
 	ngOnInit() {
+		this.articleService.subject
+			.subscribe((articles: Array<any>) => this.articles = articles);
 	}
 
 	addArticle(event: MouseEvent) {
