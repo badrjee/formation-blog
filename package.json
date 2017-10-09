@@ -1,0 +1,30 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "lite-server",
+    "grunt": "grunt",
+    "watch": "grunt reload",
+    "dev": "concurrently \"npm run server\" \"npm run watch\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-resource": "^1.6.6",
+    "angular-route": "^1.6.6",
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-uglify": "^3.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "lite-server": "^2.3.0"
+  }
+}

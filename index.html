@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Mon blog avec AngularJS</title>
+	<script type="text/JavaScript" src="dist/bundle.js"></script>
+	<link rel="stylesheet" href="dist/bundle.css" />
+</head>
+<body ng-app="Blog">
+	<header>
+		<h1>Bienvenue sur mon blog</h1>
+		<nav>
+			<a href="#/!">Main</a>
+			<a href="#!edit">Editer un article</a>
+			<a href="#!contact">Contact</a>
+		</nav>
+	</header>
+	<div ng-view></div>
+</body>
+</html>

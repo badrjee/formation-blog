@@ -1,0 +1,28 @@
+header {
+	text-align: center;
+	background: linear-gradient(45deg, #2C666E, #90DDF0);
+	height: 80px;
+	position: relative;
+}
+
+header h1 {
+	position: relative;
+	top: 50%;
+	width: 100%;
+	transform: translate(0, -50%);
+}
+
+nav {
+	margin-top: 20px;
+}
+
+nav a {
+	color: black;
+	text-decoration: none;
+	font-size: 16px;
+	padding: 0 10px;
+}
+
+div {
+	background-color: red;
+}
