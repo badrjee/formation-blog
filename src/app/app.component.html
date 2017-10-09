@@ -6,14 +6,14 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="/">Main</a>
+          <li>
+            <a routerLink="/">Main</a>
           </li>
           <li>
-            <a href="/edit">Editer un article</a>
+            <a [routerLink]="'/edit'">Editer un article</a>
           </li>
           <li>
-            <a href="/contact">Contact</a>
+            <a routerLink="/contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -21,6 +21,5 @@
   </nav>
 </header>
 <div class="container">
-  <app-list-article></app-list-article>
-  <app-add-article></app-add-article>
+  <router-outlet></router-outlet>
 </div>

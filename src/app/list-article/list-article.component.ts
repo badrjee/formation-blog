@@ -26,4 +26,8 @@ export class ListArticleComponent implements OnInit {
 		});
 	}
 
+	deleteById(id: number) {
+		this.articleService.delete(id);
+	}
+
 }

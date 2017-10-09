@@ -14,15 +14,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-  	this.articleService.add({
-			id: 0,
-		title: 'Article n°1',
-		description: 'Super description...'
-	});
-	this.articleService.add({
-		id: 1,
-		title: 'Article n°2',
-		description: 'Autre description...'
-	});
+  	this.articleService.list();
   }
 }
