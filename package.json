@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "lite-server",
     "grunt": "grunt",
-    "watch": "grunt reload",
-    "dev": "concurrently \"npm run server\" \"npm run watch\""
+    "watch": "grunt && grunt reload",
+    "start": "concurrently \"npm run server\" \"npm run watch\""
   },
   "author": "",
   "license": "ISC",
