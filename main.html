@@ -2,7 +2,16 @@
 	ng-controller="ArticlesController as controller">
 	<h2>Nombre d'articles : {{ controller.articles.length }}</h2>
 	<div id="article-{{ $index }}" class="article" ng-repeat="article in controller.articles track by $index">
-		<h3>{{ article.title }}</h3>
+		<div class="title">
+			<h3>{{ article.title }}</h3>
+			<a href="" ng-click="controller.delete(article.id)">Supprimer</a>
+			<!-- <a href="#!/edit/{{article.id}}">Modifier</a> -->
+			<a href="" ng-click="controller.edit(article.id)">Modifier</a>
+		</div>
 		<p>{{ article.description }}</p>
+	</div>
+	<div class="admin">
+		<button class="btn btn-danger"
+			ng-click="controller.reinitialize()">Reinitialiser avec le fichier JSON</button>
 	</div>
 </div>

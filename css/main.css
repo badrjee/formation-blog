@@ -1,0 +1,14 @@
+div.title {
+	display: inline-flex;
+}
+
+div.title a {
+	margin-top: 22px;
+	margin-left: 5px;
+}
+
+div.admin {
+	position: fixed;
+    top: 20%;
+    left: 10px;
+}

@@ -7,7 +7,9 @@ module.exports = function(grunt) {
 					'node_modules/angular/angular.min.js',
 					'node_modules/angular-resource/angular-resource.min.js',
 					'node_modules/angular-route/angular-route.min.js',
-					'app/data.service.js', 'app/app.js', 'app/*.controller.js'
+					'node_modules/mock-helper/index.js',
+					'app/data.service.js', 'app/app.js',
+					'app/*.controller.js', 'app/*.component.js'
 				],
 				dest: 'dist/bundle.js'
 			}

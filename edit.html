@@ -23,7 +23,7 @@
 				ng-model="controller.article.description"></textarea>
 		</div>
 		<button class="btn btn-primary"
-			ng-disabled="addForm.$invalid">Ajouter</button>
+			ng-disabled="addForm.$invalid">{{ controller.article.id ? 'Mettre à jour' : 'Ajouter'}}</button>
 		<div class="navbar navbar-fixed-top">
 			<div class="alert alert-danger" ng-show="addForm.descr.$touched && addForm.descr.$invalid">
 			La description est invalide !
