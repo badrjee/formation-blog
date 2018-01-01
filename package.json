@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "lite-server",
-    "grunt": "grunt",
     "watch": "grunt && grunt reload",
-    "start": "concurrently \"npm run server\" \"npm run watch\""
+    "dev": "concurrently \"npm run server\" \"npm run watch\"",
+    "start": "grunt && npm run server"
   },
   "author": "",
   "license": "ISC",
