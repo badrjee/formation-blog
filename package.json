@@ -8,7 +8,7 @@
     "server": "lite-server",
     "watch": "grunt && grunt reload",
     "dev": "concurrently \"npm run server\" \"npm run watch\"",
-    "start": "grunt && npm run server"
+    "start": "npm run grunt && npm run server"
   },
   "author": "",
   "license": "ISC",
