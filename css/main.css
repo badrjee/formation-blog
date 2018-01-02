@@ -10,5 +10,5 @@ div.title a {
 div.admin {
 	position: fixed;
     top: 20%;
-    left: 10px;
+    right: 10px;
 }
