@@ -10,13 +10,19 @@ export class ArticleComponent {
 	@Input() title: string;
 	@Input() description: string;
 	@Output() onDelete: EventEmitter<number>;
+	@Output() onUpdate: EventEmitter<number>;
 
 	constructor() {
 		this.onDelete = new EventEmitter<number>();
+		this.onUpdate = new EventEmitter<number>();
 	}
 
-	fireEvent(event: MouseEvent) {
-		console.log('Evénement : ', event);
+	fireEventDelete(event: MouseEvent) {
+		// console.log('Evénement : ', event);
 		this.onDelete.emit(this.id);
+	}
+
+	fireEventUpdate() {
+		this.onUpdate.emit(this.id);
 	}
 }

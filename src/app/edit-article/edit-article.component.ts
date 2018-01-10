@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Article } from '../article';
 
@@ -8,9 +8,10 @@ import { Article } from '../article';
 	styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent {
+	@Input() article: Article;
 	@Output() onCancel: EventEmitter<void>;
 	@Output() onCreate: EventEmitter<Article>;
-	article: Article;
+	@Output() onUpdate: EventEmitter<Article>;
 	idCount: number;
 	isDev: boolean;
 
@@ -19,7 +20,8 @@ export class EditArticleComponent {
 		this.idCount = 10;
 		this.onCancel = new EventEmitter<void>();
 		this.onCreate = new EventEmitter<Article>();
-		this.article = new Article(this.idCount++);
+		this.onUpdate = new EventEmitter<Article>();
+		this.article = new Article();
 	}
 
 	cancel() {
@@ -27,10 +29,16 @@ export class EditArticleComponent {
 	}
 
 	submit(form) {
-		// Déclancher l'événment de création :
-		this.onCreate.emit(new Article(this.article));
+		if (this.article.id >= 0) {
+			// Déclancher l'événement de mise à jour.
+			this.onUpdate.emit(new Article(this.article));
+		} else {
+			// Déclancher l'événment de création :
+			this.article.id = this.idCount++;
+			this.onCreate.emit(new Article(this.article));
+		}
 		// Vide les champs de saisie et réinitialise le model :
-		form.resetForm(new Article(this.idCount++));
+		form.resetForm(new Article());
 		// Revenir à la liste des articles :
 		// this.cancel();
 	}
