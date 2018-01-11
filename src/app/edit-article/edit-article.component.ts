@@ -1,46 +1,46 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 
 import { Article } from '../article';
+import { ArticleService } from '../article.service';
 
 @Component({
 	selector: 'app-edit-article',
 	templateUrl: './edit-article.component.html',
 	styleUrls: ['./edit-article.component.css']
 })
-export class EditArticleComponent {
-	@Input() article: Article;
-	@Output() onCancel: EventEmitter<void>;
-	@Output() onCreate: EventEmitter<Article>;
-	@Output() onUpdate: EventEmitter<Article>;
-	idCount: number;
-	isDev: boolean;
+export class EditArticleComponent implements OnInit, OnChanges {
+	@Input() id: number;
+	article: Article;
 
-	constructor() {
-		this.isDev = true;
-		this.idCount = 10;
-		this.onCancel = new EventEmitter<void>();
-		this.onCreate = new EventEmitter<Article>();
-		this.onUpdate = new EventEmitter<Article>();
+	constructor(private articleService: ArticleService) {
 		this.article = new Article();
 	}
 
-	cancel() {
-		this.onCancel.emit();
+	ngOnInit() {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes['id']) {
+			this.loadEdit();
+		}
 	}
 
 	submit(form) {
+		let data = JSON.parse(JSON.stringify(this.article));
 		if (this.article.id >= 0) {
-			// Déclancher l'événement de mise à jour.
-			this.onUpdate.emit(new Article(this.article));
+			// Mise à jour.
+			this.articleService.update(data)
 		} else {
-			// Déclancher l'événment de création :
-			this.article.id = this.idCount++;
-			this.onCreate.emit(new Article(this.article));
+			// Création.
+			this.articleService.create(data);
 		}
-		// Vide les champs de saisie et réinitialise le model :
 		form.resetForm(new Article());
-		// Revenir à la liste des articles :
-		// this.cancel();
 	}
 
+	loadEdit() {
+		if (this.id >= 0) {
+			let read = this.articleService.read(this.id);
+			this.article = JSON.parse(JSON.stringify(read));
+		}
+	}
 }

@@ -1,6 +1,8 @@
-<h2>
-	{{ title }}
-	<a (click)="fireEventUpdate()">Modifier</a>
-	<a (click)="fireEventDelete($event)">X</a>
-</h2>
-<p>{{ description }}</p>
+<div class="article">
+	<h2>
+		{{ article?.title }}
+		<a (click)="update()">Modifier</a>
+		<a (click)="delete()">X</a>
+	</h2>
+	<p>{{ article?.description }}</p>
+</div>

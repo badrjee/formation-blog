@@ -9,55 +9,27 @@ import { ArticleService } from './article.service';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	title: string;
+	title:string;
 	version: string;
-	articles: Array<Article>;
 	editing: boolean;
-	editArticle: Article;
+	articles: Array<Article>;
+	editId: number;
 
 	constructor(private articleService: ArticleService) {
+		this.title = 'BetterBlog with RxJs !'; 
+		this.version = 'v0.1.0';
 		this.editing = false;
-		this.title = 'Mon super blog NG5';
-		this.version = 'v0.0.1';
-		this.articles = this.articleService.articles;
-		this.editArticle = new Article();
+		this.articles = new Array<Article>();
+		this.articleService.articles.subscribe(
+			(articles: Array<Article>) => {
+				this.articles = articles;
+				this.editing = false;
+				this.editId = undefined;
+			});
 	}
 
-	cancelEdit() {
-		this.editing = false;
-		this.editArticle = new Article();
-	}
-
-	deleteArticle(id: number) {
-		console.log('Suppression de l\'article %s', id);
-		let index = this.articles.findIndex(
-			(article: Article) => article.id === id);
-		if (index >= 0) {
-			this.articles.splice(index, 1);
-		}
-	}
-
-	showUpdateArticle(id: number) {
-		let article = this.articles.find(
-			(article: Article) => article.id === id);
-		// Activer l'édition.
+	showUpdate(id: number) {
+		this.editId = id;
 		this.editing = true;
-		this.editArticle = new Article(article);
-	}
-
-	updateArticle(article: Article) {
-		// Rechercher l'index de l'article dans la liste.
-		let index = this.articles.findIndex(
-			(a: Article) => a.id === article.id);
-		if (index >= 0) {
-			// Si l'index est trouvé, remplacé avec le nouvel article.
-			this.articles.splice(index, 1, article);
-		}
-		// Réinitialiser l'article passé à EditArticleComponent.
-		this.editArticle = new Article();
-	}
-
-	addArticle(article: Article) {
-		this.articles.push(article);
 	}
 }

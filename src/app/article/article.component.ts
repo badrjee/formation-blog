@@ -1,28 +1,30 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { Article } from '../article';
+import { ArticleService } from '../article.service';
 
 @Component({
 	selector: 'app-article',
 	templateUrl: './article.component.html',
 	styleUrls: ['./article.component.css']
 })
-export class ArticleComponent {
-	@Input() id: number;
-	@Input() title: string;
-	@Input() description: string;
-	@Output() onDelete: EventEmitter<number>;
+export class ArticleComponent implements OnInit {
+	@Input() article: Article;
 	@Output() onUpdate: EventEmitter<number>;
 
-	constructor() {
-		this.onDelete = new EventEmitter<number>();
+	constructor(private articleService: ArticleService) {
 		this.onUpdate = new EventEmitter<number>();
 	}
 
-	fireEventDelete(event: MouseEvent) {
-		// console.log('Evénement : ', event);
-		this.onDelete.emit(this.id);
+	ngOnInit() {
 	}
 
-	fireEventUpdate() {
-		this.onUpdate.emit(this.id);
+	delete() {
+		this.articleService.delete(this.article.id);
 	}
+
+	update() {
+		this.onUpdate.emit(this.article.id)
+	}
+
 }
