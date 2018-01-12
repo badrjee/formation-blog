@@ -3,12 +3,8 @@
   "version": "0.2.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "npm run build && node server.js",
+    "build": "ng build --prod --build-optimizer"
   },
   "private": true,
   "dependencies": {
