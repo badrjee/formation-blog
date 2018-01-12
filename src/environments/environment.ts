@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://www.bordeu.fr/api/get.php'
+  apiUrl: 'http://localhost:8080/blogback/api'
 };

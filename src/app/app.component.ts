@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Article } from './article';
 import { ArticleService } from './article.service';
@@ -8,7 +8,7 @@ import { ArticleService } from './article.service';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	title:string;
 	version: string;
 	editing: boolean;
@@ -26,6 +26,10 @@ export class AppComponent {
 				this.editing = false;
 				this.editId = undefined;
 			});
+	}
+
+	ngOnInit() {
+		this.articleService.initialize();
 	}
 
 	showUpdate(id: number) {

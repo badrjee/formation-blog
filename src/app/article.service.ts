@@ -1,24 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs';
 
 import { Article } from './article';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class ArticleService {
 	articles: BehaviorSubject<Array<Article>>;
-	idCount: number;
+	apiUrl: string;
+	headers: HttpHeaders;
 
-	constructor() {
+	constructor(private httpClient: HttpClient) {
 		this.articles = new BehaviorSubject([]);
-		this.idCount = 10;
+		this.apiUrl = environment.apiUrl + '/article';
+		this.headers = new HttpHeaders({
+			'Access-Control-Allow-Origin': '*'
+		});
+	}
+
+	initialize() {
+		this.httpClient.get(this.apiUrl,
+			{ headers: this.headers}).subscribe(
+			(list: Array<Article>) => this.articles.next(list));
 	}
 
 	create(article: Article) {
-		let tmp = this.articles.value;
-		article.id = this.idCount++;
-		tmp.push(article);
-		this.articles.next(tmp);
+		this.httpClient.post(this.apiUrl, article,
+		{ headers: this.headers}).subscribe(
+			(newArticle: Article) => {
+				let tmp = this.articles.value;
+				tmp.push(newArticle);
+				this.articles.next(tmp);
+			});
 	}
 
 	read(id: number): Article {
@@ -26,22 +41,29 @@ export class ArticleService {
 	}
 
 	update(article: Article) {
-		let tmp = this.articles.value;
-		let index = tmp.findIndex(
-			(a: Article) => a.id === article.id);
-		if (index >= 0) {
-			tmp.splice(index, 1, article);
-			this.articles.next(tmp);
-		}
+		this.httpClient.post(this.apiUrl, article,
+			{ headers: this.headers}).subscribe(
+			(newArticle: Article) => {
+				let tmp = this.articles.value;
+				let index = tmp.findIndex(
+					(a: Article) => a.id === newArticle.id);
+				if (index >= 0) {
+					tmp.splice(index, 1, newArticle);
+					this.articles.next(tmp);
+				}
+			});
 	}
 
 	delete(id: number) {
-		let tmp = this.articles.value;
-		let index = tmp.findIndex(
-			(a: Article) => a.id === id);
-		if (index >= 0) {
-			tmp.splice(index, 1);
-			this.articles.next(tmp);
-		}
+		this.httpClient.delete(this.apiUrl + '/' + id,
+			{ headers: this.headers}).subscribe(() => {
+			let tmp = this.articles.value;
+			let index = tmp.findIndex(
+				(a: Article) => a.id === id);
+			if (index >= 0) {
+				tmp.splice(index, 1);
+				this.articles.next(tmp);
+			}
+		});
 	}
 }
