@@ -21,8 +21,12 @@
 </header>
 <div class="container">
 	<div class="listArticle" *ngIf="!editing">
-		<div class="article" *ngFor="let article of articles">
-			<h2>{{ article?.title }}</h2>
+		<div class="article" *ngFor="let article of articles; index as i;">
+			<h2>
+				{{ article?.title }}
+				<img src="/assets/edit.png" (click)="modifyArticle(article.id, i)">
+				<img src="/assets/delete.png" (click)="deleteArticle(article.id, i)">
+			</h2>
 			<p>{{ article?.description }}</p>
 		</div>
 		<button class="btn btn-info" (click)="addArticle()">Ajouter un article</button>

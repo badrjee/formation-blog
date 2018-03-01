@@ -17,11 +17,9 @@ export class AppComponent {
 
 	constructor(private articleService: ArticleService) {
 		this.editing = false;
-		this.editArticle = new Article(0, '');
+		this.editArticle = new Article();
 		this.title = 'Better blog';
 		this.articles = new Array();
-		// this.articles.push(new Article(99, 'Article de test', 
-		// 	'Super description...'));
 	}
 
 	ngOnInit() {
@@ -45,9 +43,28 @@ export class AppComponent {
 	}
 
 	saveArticle(myForm: NgForm) {
-		// Utilisation de JSON pour sérialiser puis déserialiser l'article afin
-		// d'obtenir une nouvelle instance d'objet utilisant une autre adresse mémoire.
-		this.articles.push(JSON.parse(JSON.stringify(this.editArticle)));
+		if (this.editArticle.id >= 0) {
+			this.articleService.update(this.editArticle)
+				.subscribe((article) => {
+					// Remplacer l'article à jour dans la liste.
+					let index = this.articles.findIndex(
+						(value: Article) => value.id === article.id);
+					this.articles.splice(index, 1, article);
+				});
+		} else {
+			this.articleService.create(this.editArticle)
+				.subscribe((article) => this.articles.push(article));
+		}
 		myForm.resetForm();
+	}
+
+	modifyArticle(id: number, index: number) {
+		this.editArticle = this.articles[index];
+		// Basculer l'affichage vers le formulaire.
+		this.addArticle();
+	}
+
+	deleteArticle(id: number, index: number) {
+		this.articles.splice(index, 1);
 	}
 }
