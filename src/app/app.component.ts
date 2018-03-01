@@ -55,6 +55,7 @@ export class AppComponent {
 			this.articleService.create(this.editArticle)
 				.subscribe((article) => this.articles.push(article));
 		}
+		this.editArticle.id = undefined;
 		myForm.resetForm();
 	}
 

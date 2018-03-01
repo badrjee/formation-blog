@@ -32,8 +32,7 @@
 		<button class="btn btn-info" (click)="addArticle()">Ajouter un article</button>
 	</div>
 	<div class="container-fluid bg-light py-3" *ngIf="editing">
-		<form id="contact-form" method="post" action="contact.php"
-			(ngSubmit)="saveArticle(myForm)" #myForm="ngForm">
+		<form (ngSubmit)="saveArticle(myForm)" #myForm="ngForm">
 			<div class="messages"></div>
 			<div class="controls">
 				<div class="row">
