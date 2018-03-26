@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { Article } from './article';
-import { ArticleService } from './article.service';
+import { Article } from './blog-lib/article';
+import { ArticleService } from './blog-lib/article.service';
 
 @Component({
 	selector: 'app-root',
