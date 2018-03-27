@@ -1,6 +1,6 @@
 {
   "name": "betterblog",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "build": "ng-packagr -p ng-packagr.json",
