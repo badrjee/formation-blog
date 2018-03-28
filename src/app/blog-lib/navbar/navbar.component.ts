@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export const
 	NAV_LIST = 'list',
@@ -10,7 +10,7 @@ export const
 	templateUrl: './navbar.component.html',
 	styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 	@Input() title: string;
 	@Output() onNavigate: EventEmitter<string>;
 
