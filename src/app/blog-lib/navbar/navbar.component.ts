@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+export const
+	NAV_LIST = 'list',
+	NAV_CREATE = 'create',
+	NAV_CONTACT = 'contact';
+
 @Component({
 	selector: 'blog-navbar',
 	templateUrl: './navbar.component.html',
@@ -14,7 +19,8 @@ export class NavbarComponent implements OnInit {
 		this.onNavigate = new EventEmitter();
 	}
 
-	ngOnInit() {
+	navigate(path: string) {
+		this.onNavigate.emit(path);
 	}
 
 }
