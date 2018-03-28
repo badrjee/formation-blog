@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    border: 1px solid black;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+span.error {
+    color: red;
+    font-weight: bold;
+}

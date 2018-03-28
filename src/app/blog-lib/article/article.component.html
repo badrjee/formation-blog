@@ -1,0 +1,24 @@
+<!-- Lorsque l'on utilise ng-template, il faut utiliser les directives
+	structurelles (comportant normalement le préfix '*') comme des directives
+	d'attributs (avec '[]'). -->
+<!-- Lorsque l'on utilise ng-container, on utilise les directives
+	structurelles normalement. L'élément ng-container n'existe que dans les
+	sources du projet mais n'existe jamais à l'éxécution. -->
+<!-- <ng-container *ngIf="article; else elseTmpl"> -->
+<!-- La ligne du dessus en commentaire donne le même résultat que la ligne
+	ci-dessous car Angular transforme toujours l'utilisation des directives
+	'*ngXXX=""' en une utilisation de '<ng-template [ngXXX]=""'. -->
+<ng-template [ngIf]="article" [ngIfElse]="elseTmpl">
+	<div class="article" [title]="article.author">
+		<h2>
+			{{ article?.title }}
+			<img src="/assets/edit.png" (click)="modifyArticle(article.id)">
+			<img src="/assets/delete.png" (click)="deleteArticle(article.id)">
+		</h2>
+		<p>{{ article?.description }}</p>
+	</div>
+</ng-template>
+<!-- </ng-container> -->
+<ng-template #elseTmpl>
+	<span class="error">Article with no input to display...</span>
+</ng-template>

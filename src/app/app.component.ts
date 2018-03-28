@@ -17,7 +17,6 @@ export class AppComponent {
 
 	constructor(private articleService: ArticleService) {
 		this.editing = false;
-		this.editArticle = new Article();
 		this.title = 'Better blog';
 		this.articles = new Array();
 	}
@@ -34,38 +33,32 @@ export class AppComponent {
 		});
 	}
 
+	create(article: Article) {
+		this.articles.push(article);
+	}
+
+	update(article: Article) {
+					// Remplacer l'article à jour dans la liste.
+					let index = this.articles.findIndex(
+						(value: Article) => value.id === article.id);
+					this.articles.splice(index, 1, article);
+	}
+
 	addArticle() {
 		this.editing = true;
-	}
+		}
 
 	backToList() {
 		setTimeout(() => this.editing = false);
 	}
 
-	saveArticle(myForm: NgForm) {
-		if (this.editArticle.id >= 0) {
-			this.articleService.update(this.editArticle)
-				.subscribe((article) => {
-					// Remplacer l'article à jour dans la liste.
-					let index = this.articles.findIndex(
-						(value: Article) => value.id === article.id);
-					this.articles.splice(index, 1, article);
-				});
-		} else {
-			this.articleService.create(this.editArticle)
-				.subscribe((article) => this.articles.push(article));
-		}
-		this.editArticle.id = undefined;
-		myForm.resetForm();
-	}
-
-	modifyArticle(id: number, index: number) {
+	modify(id: number, index: number) {
 		this.editArticle = this.articles[index];
 		// Basculer l'affichage vers le formulaire.
 		this.addArticle();
 	}
 
-	deleteArticle(id: number, index: number) {
+	delete(id: number, index: number) {
 		this.articles.splice(index, 1);
 	}
 }
