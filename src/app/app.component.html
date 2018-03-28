@@ -1,5 +1,5 @@
 <header>
-	<blog-navbar title="BetterBlog v2"></blog-navbar>
+	<blog-navbar title="BetterBlog v2" (onNavigate)="nav($event)"></blog-navbar>
 </header>
 <div class="container">
 	<div class="listArticle" *ngIf="!editing">

@@ -3,6 +3,12 @@ import { NgForm } from '@angular/forms';
 
 import { Article } from './blog-lib/article';
 import { ArticleService } from './blog-lib/article.service';
+import {
+	NAV_LIST,
+	NAV_CREATE,
+	NAV_CONTACT,
+	NAV_HOME
+} from './blog-lib/navbar/navbar.component';
 
 @Component({
 	selector: 'app-root',
@@ -18,6 +24,7 @@ export class AppComponent {
 	constructor(private articleService: ArticleService) {
 		this.editing = false;
 		this.title = 'Better blog';
+		this.editArticle = new Article();
 		this.articles = new Array();
 	}
 
@@ -38,15 +45,15 @@ export class AppComponent {
 	}
 
 	update(article: Article) {
-					// Remplacer l'article à jour dans la liste.
-					let index = this.articles.findIndex(
-						(value: Article) => value.id === article.id);
-					this.articles.splice(index, 1, article);
+		// Remplacer l'article à jour dans la liste.
+		let index = this.articles.findIndex(
+			(value: Article) => value.id === article.id);
+		this.articles.splice(index, 1, article);
 	}
 
-	addArticle() {
+	showForm() {
 		this.editing = true;
-		}
+	}
 
 	backToList() {
 		setTimeout(() => this.editing = false);
@@ -55,10 +62,22 @@ export class AppComponent {
 	modify(id: number, index: number) {
 		this.editArticle = this.articles[index];
 		// Basculer l'affichage vers le formulaire.
-		this.addArticle();
+		this.showForm();
 	}
 
 	delete(id: number, index: number) {
 		this.articles.splice(index, 1);
+	}
+
+	nav(path: string) {
+		if (path === NAV_HOME || path === NAV_LIST) {
+			this.backToList();
+		} else if (path === NAV_CREATE) {
+			this.showForm()
+		} else if (path === NAV_CONTACT) {
+			window.alert('No contact page yet... Coming soon sorry !');
+		} else {
+			console.error('Navigation path %s not managed by ion-blog...', path);
+		}
 	}
 }
