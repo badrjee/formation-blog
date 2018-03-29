@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Article } from '../article';
@@ -20,14 +20,23 @@ import { ArticleService } from '../article.service';
  *  - Output : 'onUpdate' l'événement pour gérer l'action "article modifié et enregistré"
  */
 export class ArticleEditComponent {
-	@Input() editArticle: Article;
+	@Input() article: Article;
 	@Output() onCreate: EventEmitter<Article>;
 	@Output() onUpdate: EventEmitter<Article>;
+	private editArticle: Article;
 
 	constructor(private articleService: ArticleService) {
 		this.editArticle = new Article();
 		this.onCreate = new EventEmitter();
 		this.onUpdate = new EventEmitter();
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.article && this.article) {
+			this.editArticle = JSON.parse(JSON.stringify(this.article));
+		} else {
+			this.editArticle = new Article();
+		}
 	}
 
 	saveArticle(myForm: NgForm) {

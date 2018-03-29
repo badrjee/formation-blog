@@ -7,11 +7,11 @@
 			[article]="article" (onModify)="modify($event, i)"
 			(onDelete)="delete($event, i)"></blog-article>
 		<button class="btn btn-info"
-			(click)="addArticle()">Ajouter un article</button>
+			(click)="showForm()">Ajouter un article</button>
 		<blog-article></blog-article>
 	</div>
 	<div class="container-fluid bg-light py-3" *ngIf="editing">
-		<blog-article-edit [editArticle]="editArticle"
+		<blog-article-edit [article]="editArticle"
 			(onCreate)="create($event)" (onUpdate)="update($event)">
 		</blog-article-edit>
 		<button class="btn btn-warn"

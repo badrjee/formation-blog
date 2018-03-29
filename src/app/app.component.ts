@@ -29,7 +29,7 @@ export class AppComponent {
 	}
 
 	ngOnInit() {
-		this.articleService.list().subscribe({
+		this.articleService.initialize().subscribe({
 			next: (articles) => {
 				this.articles = articles;
 			},
@@ -51,7 +51,8 @@ export class AppComponent {
 		this.articles.splice(index, 1, article);
 	}
 
-	showForm() {
+	showForm(article?: Article) {
+		this.editArticle = article;
 		this.editing = true;
 	}
 
@@ -60,12 +61,12 @@ export class AppComponent {
 	}
 
 	modify(id: number, index: number) {
-		this.editArticle = this.articles[index];
 		// Basculer l'affichage vers le formulaire.
-		this.showForm();
+		this.showForm(this.articles[index]);
 	}
 
 	delete(id: number, index: number) {
+		this.articleService.delete(id);
 		this.articles.splice(index, 1);
 	}
 
