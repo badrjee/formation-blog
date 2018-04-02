@@ -40,17 +40,14 @@ export class ArticleEditComponent {
 	}
 
 	saveArticle(myForm: NgForm) {
+		let article = JSON.parse(JSON.stringify(this.editArticle));
 		// Si l'id est présent, alors l'article existe déjà.
 		if (this.editArticle.id >= 0) {
-			// Mise à jour
-			this.articleService.update(this.editArticle)
-				.subscribe((article) => {
-					this.onUpdate.emit(article);
-				});
+			// Evénement de mise à jour.
+			this.onUpdate.emit(article);
 		} else {
-			// Création
-			this.articleService.create(this.editArticle)
-				.subscribe((article) => this.onCreate.emit(article));
+			// Evénement de création.
+			this.onCreate.emit(article)
 		}
 		// Le champ 'id' ne peut pas être modifié par resetForm() car
 		// il n'est pas utilisé par ngModel dans la template HTML.

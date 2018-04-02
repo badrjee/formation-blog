@@ -29,26 +29,29 @@ export class AppComponent {
 	}
 
 	ngOnInit() {
+		// Initialize charge le fichier JSON et envoie les données une seule fois !
+		// On l'utilise donc maintenant uniquement pour vérifier une erreur du chargement initial.
 		this.articleService.initialize().subscribe({
-			next: (articles) => {
-				this.articles = articles;
-			},
+			// L'inscription à 'next' est inutile car déjà gérée par l'appel à list().
+			// next: (articles) => {
+			// 	this.articles = articles;
+			// },
 			error: (response) => {
 				console.log('Impossible de récupérer les article dans le fichier JSON.',
 					response);
 			}
 		});
+		// Pour gérer le maintient de la liste à jour il faut donc s'inscrire à list().
+		this.articleService.list().subscribe((articles) => this.articles = articles);
 	}
 
 	create(article: Article) {
-		this.articles.push(article);
+		this.articleService.create(article);
 	}
 
 	update(article: Article) {
 		// Remplacer l'article à jour dans la liste.
-		let index = this.articles.findIndex(
-			(value: Article) => value.id === article.id);
-		this.articles.splice(index, 1, article);
+		this.articleService.update(article);
 	}
 
 	showForm(article?: Article) {
@@ -67,7 +70,6 @@ export class AppComponent {
 
 	delete(id: number, index: number) {
 		this.articleService.delete(id);
-		this.articles.splice(index, 1);
 	}
 
 	nav(path: string) {
