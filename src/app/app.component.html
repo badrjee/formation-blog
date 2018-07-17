@@ -1,1 +1,5 @@
-<h1>Blog works !</h1>
+<h2>{{title}}</h2>
+<!--TODO inserer la navbar ngBlog/List/Form/Contact-->
+<blog-list [articles]="articles"></blog-list>
+<blog-edit (onCreate)="handleCreate($event)"></blog-edit>
+

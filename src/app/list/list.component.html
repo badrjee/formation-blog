@@ -1,0 +1,13 @@
+
+<h3>Liste des Articles : </h3>
+<div>
+        <div  *ngFor="let article of articles">
+                <h4>Artcile n°{{article.id}}</h4>
+                <span>Nom : </span>
+                <span>{{article.title}}</span>
+                <br>
+                <span>Contenu : </span>
+                <span>{{article.content}}</span>
+            </div>
+
+</div>
