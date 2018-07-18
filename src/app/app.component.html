@@ -1,5 +1,10 @@
-<h2>{{title}}</h2>
-<!--TODO inserer la navbar ngBlog/List/Form/Contact-->
-<blog-list [articles]="articles"></blog-list>
-<blog-edit (onCreate)="handleCreate($event)"></blog-edit>
-
+<h1>{{ title }}</h1>
+<div class="container">
+    <a href="" (click)="showList = !showList"><button type="button" class="btn btn-primary btn-lg">Créer un nouvel article</button></a>
+    <blog-list [articles]="articles" *ngIf="showList; else showFormTpl"
+        (onDelete)="handleDelete($event)" (onEdit)="showEdit($event)"></blog-list>
+</div>
+<ng-template #showFormTpl>
+    <blog-edit [article]="editArticle"
+        (onCreate)="handleCreate($event)" (onUpdate)="handleUpdate($event)"></blog-edit>
+</ng-template>

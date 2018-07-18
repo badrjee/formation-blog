@@ -1,28 +1,42 @@
-import { Component, OnInit, EventEmitter, Output, SystemJsNgModuleLoaderConfig } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Article } from '../aticle';
 import { NgForm } from '@angular/forms';
 
+let ID_COUNT: number = 0;
 
 @Component({
-  selector: 'blog-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+	selector: 'blog-edit',
+	templateUrl: './edit.component.html',
+	styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+	
+	@Input() article: Article;
+	@Output() onCreate: EventEmitter<Article>;
+	@Output() onUpdate: EventEmitter<Article>;
+	private model: Article;
 
-  article:Article;
-  @Output() onCreate: EventEmitter<Article>;
+	constructor() {
+		this.model = new Article();
+		this.model.id = ++ID_COUNT;
+		this.onCreate = new EventEmitter();
+		this.onUpdate = new EventEmitter();
+	}
 
-  constructor() {
-    this.article = new Article;
-    this.onCreate = new EventEmitter;
-  }
+	ngOnInit() {
+		if (this.article) {
+			this.model = this.article;
+		}
+	}
 
-  ngOnInit() {
-  }
-
-  submit(form: NgForm){
-    this.onCreate.emit(JSON.parse(JSON.stringify(this.article)));
-  }
+	submit(form: NgForm) {
+		let data: Article = JSON.parse(JSON.stringify(this.model));
+		if (this.article) {
+			this.onUpdate.emit(data)
+		} else {
+			this.onCreate.emit(data);
+		}
+		form.resetForm();
+	}
 
 }

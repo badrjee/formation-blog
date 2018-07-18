@@ -1,13 +1,13 @@
-
-<h3>Liste des Articles : </h3>
+<h2>Liste des articles :</h2>
 <div>
-        <div  *ngFor="let article of articles">
-                <h4>Artcile n°{{article.id}}</h4>
-                <span>Nom : </span>
-                <span>{{article.title}}</span>
-                <br>
-                <span>Contenu : </span>
-                <span>{{article.content}}</span>
-            </div>
-
+	<div class="card" *ngFor="let article of articles">
+		<div class="card-body">
+			<h4 class="card-title">
+				{{ article.title }}
+				<img src="/assets/delete.png" (click)="delete(article)" />
+				<img src="/assets/edit.png" (click)="edit(article)" />
+			</h4>
+			<p class="card-text">{{ article.content }}</p>
+		</div>
+	</div>
 </div>

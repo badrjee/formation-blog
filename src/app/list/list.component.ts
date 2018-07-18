@@ -1,18 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Article } from '../aticle';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Article} from '../aticle';
 
 @Component({
-  selector: 'blog-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+	selector: 'blog-list',
+	templateUrl: './list.component.html',
+	styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
+	@Input() articles: Array<Article>;
+	@Output() onDelete: EventEmitter<number>;
+	@Output() onEdit: EventEmitter<number>;
 
-@Input() articles: Array<Article>
+	constructor() {
+		this.onDelete = new EventEmitter();
+		this.onEdit = new EventEmitter();
+	}
 
-  constructor() { }
+	delete(article: Article) {
+		if (article && article.id != null) {
+			this.onDelete.emit(article.id);
+		}
+	}
 
-  ngOnInit() {
-  }
+	edit(article: Article) {
+		if (article && article.id != null) {
+			this.onEdit.emit(article.id);
+		}
+	}
 
 }
