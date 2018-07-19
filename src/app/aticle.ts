@@ -3,11 +3,11 @@ private static ID_COUNT = 1;
 
     id: number;
     title: string;
-    content: string;
+    description: string;
 
-    constructor(title?:string, content?:string){
+    constructor(title?:string, description?:string){
         this.id = Article.ID_COUNT++;
         this.title = title;
-        this.content = content;
+        this.description = description;
     }
 }
