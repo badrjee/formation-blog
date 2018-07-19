@@ -27,9 +27,9 @@ export class ArticleService {
     .subscribe((list)=>{this.subject.next(list);});
   }
 
+
+
   //crud service
-
-
   list(): Observable<Array<Article>>{
     this.httpClient.get<Array<Article>>(this.apiUrl)
     .subscribe((list) => this.subject.next(list))
@@ -57,17 +57,39 @@ export class ArticleService {
 
 
   read(id:number): Observable<Article>{
-    return null;
+    let result = new Subject<Article>();
+    this.httpClient.get(this.apiUrl + `/${id}`)
+    .subscribe(
+      (article: Article) => result.next(article),
+      (response: HttpErrorResponse) => result.error(response.message) 
+    );
+    return result;
   }
 
 
   update(article:Article): Observable<Article>{
-    return null;
+    let result = new Subject<Article>();
+    this.httpClient.put(this.apiUrl, article)
+    .subscribe((updateArticle: Article) => {
+        this.republish(article.id, updateArticle);
+        result.next(updateArticle);
+        result.complete();
+    },(Response: HttpErrorResponse) => result.error(Response.message));
+    
+    return result;
   }
 
 
-  delete(id:number): Observable<boolean>{
-    return null;
+  delete(id:number): Observable<void>{
+    let  result = new Subject<void>();
+    this.httpClient.delete(this.apiUrl + `/${id}`)
+    .subscribe(() => {
+      this.republish(id, null);
+      result.complete();
+    },
+    (response: HttpErrorResponse) => result.error(response.message));  
+    
+    return result;
   }
 
 
@@ -84,7 +106,7 @@ export class ArticleService {
     } else {
       //recuperation de l'id de l'article a mettreà jour ou à supprimer
       let index = currentArticles.findIndex((a) => a.id === id);
-      if (index >=0 && Article){
+      if (index >=0 && article){
         //mise à jour
         currentArticles.splice(index, 1, article)
       } else if(index >=0) {
