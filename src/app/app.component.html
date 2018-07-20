@@ -1,10 +1,23 @@
-<h1>{{ title }}</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">NgBlog</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="" [routerLink]="['articles']">Liste des articles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="" [routerLink]="['edit']">Créer un article</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Contact</a>
+        </li>
+        </ul>
+        <span class="navbar-text">
+        Bienvenu dans la blogosphère...
+        </span>
+    </div>
+</nav>
 <div class="container">
-    <a href="" (click)="showList = !showList"><button type="button" class="btn btn-primary btn-lg">Créer un nouvel article</button></a>
-    <blog-list [articles]="articles" *ngIf="showList; else showFormTpl"
-        (onDelete)="handleDelete($event)" (onEdit)="showEdit($event)"></blog-list>
+    <h1>{{ title }}</h1>
+    <router-outlet></router-outlet>
 </div>
-<ng-template #showFormTpl>
-    <blog-edit [article]="editArticle"
-        (onCreate)="handleCreate($event)" (onUpdate)="handleUpdate($event)"></blog-edit>
-</ng-template>

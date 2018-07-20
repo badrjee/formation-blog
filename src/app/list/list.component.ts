@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Article} from '../aticle';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Article } from '../article';
 
 @Component({
 	selector: 'blog-list',
